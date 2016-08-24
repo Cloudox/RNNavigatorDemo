@@ -19,29 +19,88 @@ import SecondView from './SecondView';
 export default class FirstView extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      id: 1,
+      user: null
+    };
   }
 
-  onPressButton() {
+  onPressButtonA() {
+    let _this = this;
     const { navigator } = this.props;
     if(navigator) {
       navigator.push({
         name: 'SecondView',
         component: SecondView,
-      })
+        params: {
+          id: 1,
+          getUser: function(user) {
+            _this.setState({
+              user: user
+            })
+          }
+        }
+      });
+    }
+  }
+
+  onPressButtonB() {
+    let _this = this;
+    const { navigator } = this.props;
+    if(navigator) {
+      navigator.push({
+        name: 'SecondView',
+        component: SecondView,
+        params: {
+          id: 2,
+          getUser: function(user) {
+            _this.setState({
+              user: user
+            })
+          }
+        }
+      });
     }
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={this.onPressButton.bind(this)}>
-          <Text style={styles.welcome}>
-            点击跳转到下一页
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
+    if( this.state.user ) {
+      return (
+          <View style={styles.container}>
+            <TouchableOpacity onPress={this.onPressButtonA.bind(this)}>
+              <Text style={styles.welcome}>
+                查询ID为{ this.state.id }的学生信息
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onPressButtonB.bind(this)}>
+              <Text style={styles.welcome}>
+                查询ID为2的学生信息
+              </Text>
+            </TouchableOpacity>
+            <Text style={styles.welcome}>
+              学生信息：
+            </Text>
+            <Text style={styles.welcome}>
+              { JSON.stringify(this.state.user) }
+            </Text>
+          </View>
+        );
+    } else {
+      return (
+        <View style={styles.container}>
+          <TouchableOpacity onPress={this.onPressButtonA.bind(this)}>
+            <Text style={styles.welcome}>
+              查询ID为1的学生信息
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onPressButtonB.bind(this)}>
+            <Text style={styles.welcome}>
+              查询ID为2的学生信息
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
   }
 }
 
