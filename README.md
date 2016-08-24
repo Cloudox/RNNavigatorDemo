@@ -243,3 +243,6 @@ const USER_MODELS = {
 以上基本叙述完毕，看下效果图吧：
 
 ![](https://github.com/Cloudox/RNNavigatorDemo/blob/master/RNNavigatorDemo.gif)
+
+
+查看[我的博客](http://blog.csdn.net/cloudox_/article/details/52300396)
